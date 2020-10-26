@@ -18,6 +18,8 @@
 package com.linkedin.restli.server;
 
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.linkedin.common.callback.Callback;
 import com.linkedin.data.ByteString;
@@ -47,7 +49,6 @@ import com.linkedin.r2.message.stream.entitystream.EntityStreams;
 import com.linkedin.r2.message.stream.entitystream.FullEntityReader;
 import com.linkedin.r2.message.stream.entitystream.Observer;
 import com.linkedin.restli.common.ErrorResponse;
-import com.linkedin.restli.common.HttpMethod;
 import com.linkedin.restli.common.HttpStatus;
 import com.linkedin.restli.common.ProtocolVersion;
 import com.linkedin.restli.common.RestConstants;
@@ -72,7 +73,6 @@ import com.linkedin.restli.server.twitter.FeedDownloadResource;
 import com.linkedin.restli.server.twitter.FeedDownloadResourceReactive;
 import com.linkedin.restli.server.twitter.StatusCollectionResource;
 import com.linkedin.restli.server.twitter.TwitterTestDataModels.Status;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -89,7 +89,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.mail.internet.ContentType;
 import javax.mail.internet.ParseException;
-
 import org.apache.commons.io.IOUtils;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
@@ -101,8 +100,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableMap;
 import static org.easymock.EasyMock.*;
 import static org.testng.Assert.*;
 
@@ -444,7 +441,7 @@ public class TestRestLiServer
 
     @SuppressWarnings("unchecked")
     Callback<StreamResponse> r2Callback = createMock(Callback.class);
-    r2Callback.onError(anyObject());
+    r2Callback.onError(new Throwable());
     expectLastCall().once();
     replay(r2Callback);
 
