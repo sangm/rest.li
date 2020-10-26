@@ -17,6 +17,9 @@
 /* $Id$ */
 package com.linkedin.common.callback;
 
+import java.util.function.Supplier;
+
+
 /**
  * A callback provides a means for the user to get notification when an asynchronous
  * operation has completed.
@@ -32,4 +35,13 @@ public interface Callback<T> extends SuccessCallback<T>
    * @param e the error
    */
   void onError(Throwable e);
+
+  /**
+   * Called with lazy Throwable creation if the asynchronous operation failed with an error
+   * @param throwableSupplier the supplier to create Throwable when needed
+   */
+  default void onError(Supplier<Throwable> throwableSupplier)
+  {
+    onError(throwableSupplier.get());
+  }
 }
